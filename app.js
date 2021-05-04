@@ -105,7 +105,7 @@ btn.onclick = ()=>{
 
 btn.ontouchstart = ()=>{
     if(task.value === ''){
-        alert('please Enter A Task!');
+        // alert('please Enter A Task!');
     }
     else
     {
