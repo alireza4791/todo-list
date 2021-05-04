@@ -1,0 +1,48 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body,
+html {
+	height: 100vh;
+	width: 100%;
+	background: #fdc830; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#f37335,
+		#fdc830
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#f37335,
+		#fdc830
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+h1 {
+	margin: 18px;
+	color: white;
+}
+li {
+	cursor: pointer;
+	/* margin-bottom: 10px;
+	list-style-image: url("images/icon.png"); */
+
+	background: url("images/icon.png") no-repeat left center;
+	padding: 15px 10px 10px 70px;
+	list-style: none;
+	margin-top: 10px;
+	vertical-align: middle;
+	color: #ffffff;
+}
+ol {
+	margin-top: 30px;
+}
+.container .btn-group button {
+	margin: 10px;
+}

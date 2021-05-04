@@ -1,0 +1,75 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.jumbotron {
+	background-image: url("../images/background_image.jpg");
+	background-size: cover;
+	height: 95vh;
+}
+.jumbotron .header_content {
+	color: black;
+	padding: 60px;
+	margin-top: 10px;
+}
+.jumbotron .header_content button {
+	background-color: #c8a89c;
+	color: white;
+	margin-top: 15px;
+}
+.jumbotron .header_content button:hover {
+	background-color: #91523a;
+	color: white;
+}
+.jumbotron .header_content #download {
+	margin-left: 30px;
+}
+.jumbotron img {
+	height: 100px;
+	width: 100px;
+	margin-left: 60px;
+}
+#footer {
+	background-color: #80808094;
+	padding: 17px;
+}
+#trial {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+#trial img {
+	width: 200px;
+	height: 200px;
+}
+#trial .container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+#dl_btn {
+	display: flex;
+	flex-wrap: wrap;
+}
+#dl_btn img {
+	margin-left: 30px;
+}
+@media only screen and (max-width: 665px) {
+	#trial .container h3 {
+		padding-left: 50px;
+	}
+}
+@media only screen and (max-width: 537px) {
+	#dl_btn img {
+		margin-left: 115px;
+	}
+}
+@media only screen and (max-width: 500px) {
+	#dl_btn img {
+		margin-left: 100px;
+	}
+}
+
+/*# sourceMappingURL=style.css.map */
