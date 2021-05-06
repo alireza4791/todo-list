@@ -1,75 +1,48 @@
 * {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
-
-.jumbotron {
-	background-image: url("../images/background_image.jpg");
-	background-size: cover;
-	height: 95vh;
+body,
+html {
+	height: 100vh;
+	width: 100%;
+	background: #fdc830; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#f37335,
+		#fdc830
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#f37335,
+		#fdc830
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.jumbotron .header_content {
-	color: black;
-	padding: 60px;
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+h1 {
+	margin: 18px;
+	color: white;
+}
+li {
+	cursor: pointer;
+	/* margin-bottom: 10px;
+	list-style-image: url("images/icon.png"); */
+
+	background: url("images/icon.png") no-repeat left center;
+	padding: 15px 10px 10px 70px;
+	list-style: none;
 	margin-top: 10px;
+	vertical-align: middle;
+	color: #ffffff;
 }
-.jumbotron .header_content button {
-	background-color: #c8a89c;
-	color: white;
-	margin-top: 15px;
+ol {
+	margin-top: 30px;
 }
-.jumbotron .header_content button:hover {
-	background-color: #91523a;
-	color: white;
+.container .btn-group button {
+	margin: 10px;
 }
-.jumbotron .header_content #download {
-	margin-left: 30px;
-}
-.jumbotron img {
-	height: 100px;
-	width: 100px;
-	margin-left: 60px;
-}
-#footer {
-	background-color: #80808094;
-	padding: 17px;
-}
-#trial {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-#trial img {
-	width: 200px;
-	height: 200px;
-}
-#trial .container {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-#dl_btn {
-	display: flex;
-	flex-wrap: wrap;
-}
-#dl_btn img {
-	margin-left: 30px;
-}
-@media only screen and (max-width: 665px) {
-	#trial .container h3 {
-		padding-left: 50px;
-	}
-}
-@media only screen and (max-width: 537px) {
-	#dl_btn img {
-		margin-left: 115px;
-	}
-}
-@media only screen and (max-width: 500px) {
-	#dl_btn img {
-		margin-left: 100px;
-	}
-}
-
-/*# sourceMappingURL=style.css.map */
