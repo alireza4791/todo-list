@@ -1,166 +1,202 @@
+// declaring variables
 const task = document.querySelector('#task');
-const btn = document.querySelector('#add_task');
+let task_value = task.value;
 const tasks = document.querySelector('#tasks');
+const add_task_btn = document.querySelector('#add_task');
 const btn_del = document.querySelector('#delete_button');
 const btn_done = document.querySelector('#done_button');
 const add_sound = document.querySelector('#add');
 const done_sound = document.querySelector('#done_sound');
+const done_all_sound = document.querySelector('#done_all_sound');
 const delete_sound = document.querySelector('#delete_sound');
 const delete_all_sound = document.querySelector('#delete_all_sound');
-const done_all_sound = document.querySelector('#done_all_sound');
+
+// retrievedObjects from the localStorage
+let tasks_retrievedObject = JSON.parse(localStorage.getItem('user'));
+let done_retrievedObject = JSON.parse(localStorage.getItem('done'));
+
+// objects
 let list = {};
 let done_list = {};
-let i = 0
 
-let retrievedObject = localStorage.getItem('user');
-retrievedObject = JSON.parse(retrievedObject);
-let retrievedObject2 = localStorage.getItem('done');
-retrievedObject2 = JSON.parse(retrievedObject2);
+for(obj in tasks_retrievedObject) list[obj] = obj;
+//functions
 
-for (const key in retrievedObject) {
+// delete item
+function deletion(item){
+    item.style.display = 'none';
+    delete_sound.play();
+}
+
+function finished(item){
+    item.style.textDecoration = 'line-through';
+    done_list[item.innerText] = item.innerText;
+    localStorage.setItem('done', JSON.stringify(done_list));
+    done_sound.play();
+}
+
+// delete all items
+function delete_all_f(){
+    for (var member in list) delete list[member];
+    localStorage.clear();
+    tasks.innerHTML = '';
+    delete_all_sound.play();
+}
+// finish all items
+function finish_all_f(){
+    for(something in list) done_list[something] = something;
+    localStorage.setItem('done', JSON.stringify(done_list));
+    tasks.style.textDecoration = 'line-through';
+    done_all_sound.play();
+}
+
+function reset(){
+    task.value = '';
+    localStorage.setItem('user', JSON.stringify(list));
+    add_sound.play();
+}
+
+// loop through the the retrieved object from the local storage
+for (const key in tasks_retrievedObject)
+{
+    // get rid previous line-throughs
+    tasks.style.textDecoration = 'none';
     let item = document.createElement('li');
     item.innerText = key;
-    for (const done in retrievedObject2) {
-        if(item.innerText == done){
-            item.style.textDecoration = 'line-through';
+    tasks.appendChild(item);
+
+    // loop through the done_retrievedObject to see if any of the items were previously finished
+    for (const second_key in done_retrievedObject)
+    {
+        if(item.innerText === second_key)
+        {
+            done_list[item.innerText] = item.innerText;
+            localStorage.setItem('done',JSON.stringify(done_list));
+            finished(item);
         }
     }
-    tasks.style.textDecoration = 'none';
-    tasks.appendChild(item);
+    
+    // items can be lined through and deleted just like newly added item
     item.onclick= ()=>
     {
-        if(item.style.textDecoration == 'line-through'){
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            item.style.display = 'none';
-            delete_sound.play();
+        if(item.style.textDecoration == 'line-through')
+        {
+            delete done_list[item.innerText];
+            localStorage.setItem('done',JSON.stringify(done_list));
+            deletion(item);
         }
         else
         {
-        item.style.textDecoration = 'line-through';
-        done_sound.play();
+            finished(item);   
         }
-        item.onclick =()=>{
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            item.style.display = 'none';
-            delete_sound.play();
+        item.onclick =()=>
+        {
+            delete done_list[item.innerText];
+            delete tasks_retrievedObject[item.innerText];
+            localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
+            localStorage.setItem('done',JSON.stringify(done_list));
+            deletion(item);
         }
     }
 
+    // adding functionalities for mobile
     item.ontouchstart= ()=>
     {
-        if(item.style.textDecoration == 'line-through'){
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            item.style.display = 'none';
-            delete_sound.play();
+        if(item.style.textDecoration == 'line-through')
+        {
+            delete done_list[item.innerText];
+            localStorage.setItem('done',JSON.stringify(done_list));
+            deletion(item);
         }
         else
         {
-        item.style.textDecoration = 'line-through';
-        done_sound.play();
+            finished(item);
         }
-        item.ontouchstart =()=>{
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            item.style.display = 'none';
-            delete_sound.play();
+        item.ontouchstart = ()=>{
+            delete done_list[item.innerText];
+            localStorage.setItem('done',JSON.stringify(done_list));
+            deletion(item);
         }
     }
 }
 
 
-
-btn.onclick = ()=>{
-    if(task.value === ''){
+// add new tasks
+add_task_btn.onclick = ()=>{
+    task_value = task.value;
+    // check to see if the user inputed anything
+    // if they didnt alert them with a message
+    if(task_value === '')
+    {
         alert('please Enter A Task!');
     }
+    // otherwise add that input to the list
     else
     {
         let item = document.createElement('li');
-        item.innerText = task.value;
-        list[item.innerText] = item.innerText;
-        task.value = '';
-        localStorage.setItem('user', JSON.stringify(list));
-        // tasks.style.textDecoration = 'none';
+        item.innerText = task_value;
         tasks.appendChild(item);
-        // item.style.textDecoration = 'none';
+        list[item.innerText] = item.innerText;
+        reset();
+        // click on item to line though it
         item.onclick= ()=>{
-            item.style.textDecoration = 'line-through';
-            console.log(item.innerText)
-            done_list[item.innerText] = item.innerText;
-            localStorage.setItem('done', JSON.stringify(done_list));
-            done_sound.play();
+            finished(item);
+            // click again for delete
             item.onclick =()=>{
                 delete list[item.innerText];
+                delete done_list[item.innerText];
                 localStorage.setItem('user',JSON.stringify(list));
-                item.style.display = 'none';
-                delete_sound.play();
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
             }
         }
-        add_sound.play();
     }
 }
 
-btn.ontouchstart = ()=>{
-    if(task.value === ''){
-        // alert('please Enter A Task!');
+//same for mobile
+add_task_btn.ontouchstart = ()=>{
+    
+    task_value = task.value;
+    // check to see if the user inputed anything
+    // if they didnt alert them with a message
+    if(task_value === '')
+    {
+        alert('please Enter A Task!');
     }
+    // otherwise add that input to the list
     else
     {
         let item = document.createElement('li');
-        item.innerText = task.value;
-        list[item.innerText] = item.innerText;
-        task.value = '';
-        localStorage.setItem('user', JSON.stringify(list));
-        // tasks.style.textDecoration = 'none';
+        item.innerText = task_value;
         tasks.appendChild(item);
-        // item.style.textDecoration = 'none';
+        list[item.innerText] = item.innerText;
+        reset();
         item.ontouchstart= ()=>{
-            item.style.textDecoration = 'line-through';
-            console.log(item.innerText)
-            done_list[item.innerText] = item.innerText;
-            localStorage.setItem('done', JSON.stringify(done_list));
-            done_sound.play();
+            finished(item);
             item.ontouchstart =()=>{
                 delete list[item.innerText];
+                delete done_list[item.innerText];
                 localStorage.setItem('user',JSON.stringify(list));
-                item.style.display = 'none';
-                delete_sound.play();
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
             }
         }
-        add_sound.play();
+        
     }
 }
 
 btn_del.onclick = ()=>{
-    for (var member in list) delete list[member];
-    localStorage.clear();
-    tasks.innerHTML = '';
-    delete_all_sound.play();
+    delete_all_f();
 }
 
 btn_del.ontouchstart = ()=>{
-    for (var member in list) delete list[member];
-    localStorage.clear();
-    tasks.innerHTML = '';
-    delete_all_sound.play();
+    delete_all_f();
 }
 
 btn_done.onclick = ()=>{
-    for (let element in done_list) delete done_list[element];
-    for(let value in list) done_list[value] = list[value];
-    localStorage.setItem('done', JSON.stringify(done_list));
-    tasks.style.textDecoration = 'line-through';
-    done_all_sound.play();
-
+    finish_all_f();
 }
 
 btn_done.ontouchstart = ()=>{
-    for (let element in done_list) delete done_list[element];
-    for(let value in list) done_list[value] = list[value];
-    localStorage.setItem('done', JSON.stringify(done_list));
-    tasks.style.textDecoration = 'line-through';
-    done_all_sound.play();
+    finish_all_f();
 }
