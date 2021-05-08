@@ -77,55 +77,62 @@ for (const key in tasks_retrievedObject)
     }
     
     // items can be lined through and deleted just like newly added item
-    item.onclick= ()=>
+    if(screen.width > 500)
     {
-        if(item.style.textDecoration == 'line-through')
+        item.onclick= ()=>
         {
-            delete done_list[item.innerText];
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            localStorage.setItem('done',JSON.stringify(done_list));
-            deletion(item);
-        }
-        else
-        {
-            finished(item);   
-        }
-        item.onclick =()=>
-        {
-            delete done_list[item.innerText];
-            delete tasks_retrievedObject[item.innerText];
-            localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
-            localStorage.setItem('done',JSON.stringify(done_list));
-            deletion(item);
+            if(item.style.textDecoration == 'line-through')
+            {
+                delete done_list[item.innerText];
+                delete list[item.innerText];
+                localStorage.setItem('user',JSON.stringify(list));
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
+            }
+            else
+            {
+                finished(item);   
+            }
+            item.onclick =()=>
+            {
+                delete done_list[item.innerText];
+                delete tasks_retrievedObject[item.innerText];
+                localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
+            }
         }
     }
 
     // adding functionalities for mobile
-    item.ontouchstart= ()=>
+    else if(screen.width <= 500)
     {
-        if(item.style.textDecoration == 'line-through')
+        item.ontouchstart= ()=>
         {
-            delete done_list[item.innerText];
-            delete list[item.innerText];
-            localStorage.setItem('user',JSON.stringify(list));
-            localStorage.setItem('done',JSON.stringify(done_list));
-            deletion(item);
-        }
-        else
-        {
-            finished(item);
-        }
-        item.ontouchstart = ()=>
-        {
-            delete done_list[item.innerText];
-            delete tasks_retrievedObject[item.innerText];
-            localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
-            localStorage.setItem('done',JSON.stringify(done_list));
-            deletion(item);
+            if(item.style.textDecoration == 'line-through')
+            {
+                delete done_list[item.innerText];
+                delete list[item.innerText];
+                localStorage.setItem('user',JSON.stringify(list));
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
+            }
+            else
+            {
+                finished(item);
+            }
+            item.ontouchstart = ()=>
+            {
+                delete done_list[item.innerText];
+                delete tasks_retrievedObject[item.innerText];
+                localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
+                localStorage.setItem('done',JSON.stringify(done_list));
+                deletion(item);
+            }
         }
     }
 }
+
 
 
 // add new tasks
