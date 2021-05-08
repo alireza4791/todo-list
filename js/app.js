@@ -144,7 +144,7 @@ if(screen.width > 500)
         else
         {
             let item = document.createElement('li');
-            item.innerText = task_value;
+            item.innerText = task.value;
             tasks.appendChild(item);
             list[item.innerText] = item.innerText;
             reset();
@@ -182,7 +182,7 @@ else if(screen.width <= 500)
         else
         {
             let item = document.createElement('li');
-            item.innerText = task_value;
+            item.innerText = task.value;
             tasks.appendChild(item);
             list[item.innerText] = item.innerText;
             reset();
