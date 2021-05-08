@@ -82,6 +82,8 @@ for (const key in tasks_retrievedObject)
         if(item.style.textDecoration == 'line-through')
         {
             delete done_list[item.innerText];
+            delete list[item.innerText];
+            localStorage.setItem('user',JSON.stringify(list));
             localStorage.setItem('done',JSON.stringify(done_list));
             deletion(item);
         }
@@ -185,18 +187,22 @@ add_task_btn.ontouchstart = ()=>{
     }
 }
 
+// trigger function for clicking on delete all button
 btn_del.onclick = ()=>{
     delete_all_f();
 }
 
+// same for mobile
 btn_del.ontouchstart = ()=>{
     delete_all_f();
 }
 
+// trigger function for clicking on finish all button
 btn_done.onclick = ()=>{
     finish_all_f();
 }
 
+// same for mobile
 btn_done.ontouchstart = ()=>{
     finish_all_f();
 }
