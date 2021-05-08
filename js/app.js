@@ -107,6 +107,8 @@ for (const key in tasks_retrievedObject)
         if(item.style.textDecoration == 'line-through')
         {
             delete done_list[item.innerText];
+            delete list[item.innerText];
+            localStorage.setItem('user',JSON.stringify(list));
             localStorage.setItem('done',JSON.stringify(done_list));
             deletion(item);
         }
@@ -116,6 +118,8 @@ for (const key in tasks_retrievedObject)
         }
         item.ontouchstart = ()=>{
             delete done_list[item.innerText];
+            delete tasks_retrievedObject[item.innerText];
+            localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
             localStorage.setItem('done',JSON.stringify(done_list));
             deletion(item);
         }
