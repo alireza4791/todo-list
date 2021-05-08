@@ -116,7 +116,8 @@ for (const key in tasks_retrievedObject)
         {
             finished(item);
         }
-        item.ontouchstart = ()=>{
+        item.ontouchstart = ()=>
+        {
             delete done_list[item.innerText];
             delete tasks_retrievedObject[item.innerText];
             localStorage.setItem('user',JSON.stringify(tasks_retrievedObject));
@@ -128,85 +129,98 @@ for (const key in tasks_retrievedObject)
 
 
 // add new tasks
-add_task_btn.onclick = ()=>{
-    task_value = task.value;
-    // check to see if the user inputed anything
-    // if they didnt alert them with a message
-    if(task_value === '')
+if(screen.width > 500)
+{
+    add_task_btn.onclick = ()=>
     {
-        alert('please Enter A Task!');
-    }
-    // otherwise add that input to the list
-    else
-    {
-        let item = document.createElement('li');
-        item.innerText = task_value;
-        tasks.appendChild(item);
-        list[item.innerText] = item.innerText;
-        reset();
-        // click on item to line though it
-        item.onclick= ()=>{
-            finished(item);
-            // click again for delete
-            item.onclick =()=>{
-                delete list[item.innerText];
-                delete done_list[item.innerText];
-                localStorage.setItem('user',JSON.stringify(list));
-                localStorage.setItem('done',JSON.stringify(done_list));
-                deletion(item);
+        task_value = task.value;
+        // check to see if the user inputed anything
+        // if they didnt alert them with a message
+        if(task.value === '')
+        {
+            alert('please Enter A Task!');
+        }
+        // otherwise add that input to the list
+        else
+        {
+            let item = document.createElement('li');
+            item.innerText = task_value;
+            tasks.appendChild(item);
+            list[item.innerText] = item.innerText;
+            reset();
+            // click on item to line though it
+            item.onclick= ()=>{
+                finished(item);
+                // click again for delete
+                item.onclick =()=>{
+                    delete list[item.innerText];
+                    delete done_list[item.innerText];
+                    localStorage.setItem('user',JSON.stringify(list));
+                    localStorage.setItem('done',JSON.stringify(done_list));
+                    deletion(item);
+                }
             }
         }
     }
 }
 
 //same for mobile
-add_task_btn.ontouchstart = ()=>{
+else if(screen.width <= 500)
+{
     
-    task_value = task.value;
-    // check to see if the user inputed anything
-    // if they didnt alert them with a message
-    if(task_value === '')
+    add_task_btn.ontouchstart = ()=>
     {
-        alert('please Enter A Task!');
-    }
-    // otherwise add that input to the list
-    else
-    {
-        let item = document.createElement('li');
-        item.innerText = task_value;
-        tasks.appendChild(item);
-        list[item.innerText] = item.innerText;
-        reset();
-        item.ontouchstart= ()=>{
-            finished(item);
-            item.ontouchstart =()=>{
-                delete list[item.innerText];
-                delete done_list[item.innerText];
-                localStorage.setItem('user',JSON.stringify(list));
-                localStorage.setItem('done',JSON.stringify(done_list));
-                deletion(item);
-            }
-        }
         
+        task_value = task.value;
+        // check to see if the user inputed anything
+        // if they didnt alert them with a message
+        if(task.value === '')
+        {
+            alert('please Enter A Task!');
+        }
+        // otherwise add that input to the list
+        else
+        {
+            let item = document.createElement('li');
+            item.innerText = task_value;
+            tasks.appendChild(item);
+            list[item.innerText] = item.innerText;
+            reset();
+            item.ontouchstart= ()=>{
+                finished(item);
+                item.ontouchstart =()=>{
+                    delete list[item.innerText];
+                    delete done_list[item.innerText];
+                    localStorage.setItem('user',JSON.stringify(list));
+                    localStorage.setItem('done',JSON.stringify(done_list));
+                    deletion(item);
+                }
+            }
+            
+        }
     }
 }
 
 // trigger function for clicking on delete all button
-btn_del.onclick = ()=>{
+btn_del.onclick = ()=>
+{
     delete_all_f();
 }
 
 // same for mobile
-btn_del.ontouchstart = ()=>{
+btn_del.ontouchstart = ()=>
+{
     delete_all_f();
 }
 
 // trigger function for clicking on finish all button
-btn_done.onclick = ()=>{
+btn_done.onclick = ()=>
+{
     finish_all_f();
 }
 
 // same for mobile
-btn_done.ontouchstart = ()=>{
+btn_done.ontouchstart = ()=>
+{
     finish_all_f();
 }
